@@ -37,13 +37,21 @@
 
 			function update_video(){
 				var vidPlayerHeight = screenHeight;
+				
 				var vidPlayerWidth = screenHeight*vidRatio
 				var vidPlayerOffset = -1*(vidPlayerWidth/2 - screenWidth/2)
-				
 				document.getElementById('vid').style.width = vidPlayerWidth;
 				document.getElementById('vid').style.height = vidPlayerHeight;
 				document.getElementById('vid').style.marginLeft = vidPlayerOffset;
 
+			}
+
+			function gyro_shift(gamma){
+
+
+				var vidPlayerWidth = screenHeight*vidRatio
+				var vidPlayerOffset = -1*(vidPlayerWidth/2 - screenWidth/2)
+				document.getElementById('vid').style.marginLeft = vidPlayerOffset+gamma
 			}
 		</script>
 
@@ -65,10 +73,10 @@
 		<script>
 			update_cropper()
 			update_video()
+			gyro.frequency=80
 			gyro.startTracking(function(o) {
-				console.log("a-"+o.alpha)
-				console.log("b-"+o.beta)
-				console.log("g-"+o.gamma)
+				console.log("g:"+o.gamma)
+				gyro_shift(o.gamma)
 			});
 		</script>
 
