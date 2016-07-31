@@ -51,7 +51,9 @@
 
 				var vidPlayerWidth = screenHeight*vidRatio
 				var vidPlayerOffset = -1*(vidPlayerWidth/2 - screenWidth/2)
-				document.getElementById('vid').style.marginLeft = vidPlayerOffset+gamma
+				var offsetPerDegree = vidPlayerOffset/30
+				
+				document.getElementById('vid').style.marginLeft = vidPlayerOffset+(gamma*offsetPerDegree)
 			}
 		</script>
 
