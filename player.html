@@ -21,12 +21,10 @@
 		}
 		</style>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+		<script src="lib/gyro.js"></script>	
 		<script>
 			var screenWidth = document.documentElement.clientWidth
 			var screenHeight = document.documentElement.clientHeight
-			console.log(screenWidth)
-			console.log(screenHeight)
 
 			var vidContentWidth = 1280;
 			var vidContentHeight = 720;
@@ -40,9 +38,7 @@
 			function update_video(){
 				var vidPlayerHeight = screenHeight;
 				var vidPlayerWidth = screenHeight*vidRatio
-				console.log("VidPlayerWidth:" + vidPlayerWidth)
 				var vidPlayerOffset = -1*(vidPlayerWidth/2 - screenWidth/2)
-				console.log(vidPlayerOffset)
 				
 				document.getElementById('vid').style.width = vidPlayerWidth;
 				document.getElementById('vid').style.height = vidPlayerHeight;
@@ -69,7 +65,11 @@
 		<script>
 			update_cropper()
 			update_video()
-			window.scrollTo(0,1)
+			gyro.startTracking(function(o) {
+				console.log("a-"+o.alpha)
+				console.log("b-"+o.beta)
+				console.log("g-"+o.gamma)
+			});
 		</script>
 
 	</body>
