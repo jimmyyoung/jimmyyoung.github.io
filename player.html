@@ -48,11 +48,12 @@
 
 			function gyro_shift(gamma){
 
-
+				var maxDegrees = 30;
 				var vidPlayerWidth = screenHeight*vidRatio
 				var vidPlayerOffset = -1*(vidPlayerWidth/2 - screenWidth/2)
-				var offsetPerDegree = -1*vidPlayerOffset/30
-				
+				var offsetPerDegree = -1*vidPlayerOffset/maxDegrees
+				var offsetDegrees = Math.max(gamma, maxDegrees)				
+
 				document.getElementById('vid').style.marginLeft = vidPlayerOffset+(gamma*offsetPerDegree)
 			}
 		</script>
@@ -76,7 +77,7 @@
 			console.log("v0.003")
 			update_cropper()
 			update_video()
-			gyro.frequency=80
+			gyro.frequency=16.6
 			gyro.startTracking(function(o) {
 				console.log("g:"+o.gamma)
 				gyro_shift(o.gamma)
