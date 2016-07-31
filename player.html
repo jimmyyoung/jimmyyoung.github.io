@@ -51,7 +51,7 @@
 
 				var vidPlayerWidth = screenHeight*vidRatio
 				var vidPlayerOffset = -1*(vidPlayerWidth/2 - screenWidth/2)
-				var offsetPerDegree = vidPlayerOffset/30
+				var offsetPerDegree = -1*vidPlayerOffset/30
 				
 				document.getElementById('vid').style.marginLeft = vidPlayerOffset+(gamma*offsetPerDegree)
 			}
@@ -73,6 +73,7 @@
 		</div>
 
 		<script>
+			console.log("v0.003")
 			update_cropper()
 			update_video()
 			gyro.frequency=80
