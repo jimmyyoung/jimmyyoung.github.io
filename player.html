@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<style>
+
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		
+		#cropper{
+			width: 333px;
+			overflow:hidden;
+			display: block;
+			height: 100px;
+			background-color: red;
+			padding: 0;
+		}
+
+		#vid{
+			margin-left:-350px;
+		}
+		</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+		<script>
+			var screenWidth = document.documentElement.clientWidth
+			var screenHeight = document.documentElement.clientHeight
+			console.log(screenWidth)
+			console.log(screenHeight)
+
+			var vidContentWidth = 1280;
+			var vidContentHeight = 720;
+			var vidRatio = vidContentWidth/vidContentHeight;
+
+			function update_cropper(){
+				document.getElementById('cropper').style.width = screenWidth
+				document.getElementById('cropper').style.height = screenHeight
+			}
+
+			function update_video(){
+				var vidPlayerHeight = screenHeight;
+				var vidPlayerWidth = screenHeight*vidRatio
+				console.log("VidPlayerWidth:" + vidPlayerWidth)
+				var vidPlayerOffset = -1*(vidPlayerWidth/2 - screenWidth/2)
+				console.log(vidPlayerOffset)
+				
+				document.getElementById('vid').style.width = vidPlayerWidth;
+				document.getElementById('vid').style.height = vidPlayerHeight;
+				document.getElementById('vid').style.marginLeft = vidPlayerOffset;
+
+			}
+		</script>
+
+	</head>	
+
+	
+	<body>
+
+			
+		
+		<div id="cropper">
+			<iframe  
+				id="vid" width="1280px" height="720px" \
+				src="https://www.youtube.com/embed/47PDFwMcplw" \
+				frameborder="0" allowfullscreen>
+			</iframe>
+		</div>
+
+		<script>
+			update_cropper()
+			update_video()
+		</script>
+
+	</body>
+
+</html>
