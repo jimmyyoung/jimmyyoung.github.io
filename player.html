@@ -5,6 +5,7 @@
 		body {
 			padding: 0;
 			margin: 0;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		}
 		
 		#cropper{
@@ -12,23 +13,68 @@
 			overflow:hidden;
 			display: block;
 			height: 100px;
-			background-color: red;
+			background-color: grey;
 			padding: 0;
 		}
 
 		#vid{
 			margin-left:-350px;
+			z-index: -1;
 		}
+
+		.comment-block{
+			display: block;
+			height: 200px;
+			position: absolute;
+			bottom: 0;
+			padding:20px;
+		}
+
+		.comment{
+			display: block;
+			float: left;
+			background-color: whitesmoke;
+			border-radius:10px;
+			padding:0px
+		}
+
+		.comment-pic{
+			display: block;
+			border-radius:9px;
+			float: left;
+			height: 50px;
+			width: 50px;
+			background-color: grey;
+		}
+
+		.comment-text{
+			display:block;
+			margin:15px;
+			float: left;
+		}
+
 		</style>
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="lib/gyro.js"></script>	
+		<script src="lib/vidsController.js"></script>
 		<script>
 			var screenWidth = document.documentElement.clientWidth
 			var screenHeight = document.documentElement.clientHeight
-
+		
+			var comments = [
+				[1,"WOW"],
+				[5,"This brings back memories"],
+				[7, "Really Badass"]
+			];
+			
+			//TODO PULL IN THE ACTUAL WIDTH AND HEIGHT
 			var vidContentWidth = 1280;
 			var vidContentHeight = 720;
 			var vidRatio = vidContentWidth/vidContentHeight;
+
+			function render_comment(){
+				
+			}
 
 			function update_cropper(){
 				document.getElementById('cropper').style.width = screenWidth
@@ -37,7 +83,6 @@
 
 			function update_video(){
 				var vidPlayerHeight = screenHeight;
-				
 				var vidPlayerWidth = screenHeight*vidRatio
 				var vidPlayerOffset = -1*(vidPlayerWidth/2 - screenWidth/2)
 				document.getElementById('vid').style.width = vidPlayerWidth;
@@ -46,16 +91,8 @@
 
 			}
 
-			function gyro_shift(gamma){
+			//Adding Comments 
 
-				var maxDegrees = 30;
-				var vidPlayerWidth = screenHeight*vidRatio
-				var vidPlayerOffset = -1*(vidPlayerWidth/2 - screenWidth/2)
-				var offsetPerDegree = -1*vidPlayerOffset/maxDegrees
-				var offsetDegrees = Math.max(gamma, maxDegrees)				
-
-				document.getElementById('vid').style.marginLeft = vidPlayerOffset+(gamma*offsetPerDegree)
-			}
 		</script>
 
 	</head>	
@@ -66,22 +103,37 @@
 			
 		
 		<div id="cropper">
-			<iframe  
-				id="vid" width="1280px" height="720px" \
-				src="https://www.youtube.com/embed/47PDFwMcplw" \
-				frameborder="0" allowfullscreen>
-			</iframe>
+			<div id="vid"></div>
+			<div class="comment-block">
+				<div class="comment">
+					<img class="comment-pic" src="https://s3.amazonaws.com/uifaces/faces/twitter/adellecharles/73.jpg"</img>
+					
+					<div class="comment-text"> WOW </div>
+				</div>
+			</div>
 		</div>
 
 		<script>
+			//Load the player here
+			var tag = document.createElement('script');
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+      		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			
+			var player;
+			var vids = new vidsController()
+			
+
+	
+
+      			function onPlayerReady(event) {
+        			event.target.playVideo();
+      			}	
+
+			//Update the sizing of the container to match device
 			console.log("v0.003")
 			update_cropper()
 			update_video()
-			gyro.frequency=16.6
-			gyro.startTracking(function(o) {
-				console.log("g:"+o.gamma)
-				gyro_shift(o.gamma)
-			});
 		</script>
 
 	</body>
