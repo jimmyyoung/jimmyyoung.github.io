@@ -156,15 +156,17 @@
 			
 			var player;
 			var vids = new vidsController()
-			
 
-	
-
-      			function onPlayerReady(event) {
-        			event.target.playVideo();
-      				update_cropper()
+            
+      		function onPlayerReady(event) {
+        		event.target.playVideo();
+      			update_cropper()
 				update_video()
-			}	
+		    }
+
+            function onYouTubeIframeAPIReady() {
+                vids.playVideo("sEFtNFyN59U")
+            }
 
 			//Update the sizing of the container to match device
 			console.log("v0.003")
